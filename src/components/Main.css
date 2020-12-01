@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  justify-content: center;
+  border: 1px solid blue;
+}
+
+p {
+  text-align: center;
+}
+
+.bar {
+  background-color: #bce6eb;
+  margin-right: 1px;
+  border: 1px solid blue;
+}
