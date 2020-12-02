@@ -10,6 +10,7 @@ function Header() {
   const [size, setSize] = useState(5);
   const [arr, setArr] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [currentNextIndex, setCurrentNextIndex] = useState(null);
 
   const handleSliderChange = (event, newValue) => {
     setSize(newValue);
@@ -44,10 +45,28 @@ function Header() {
   // };
 
   const bubbleOnClick = async () => {
-    for (let i = 0; i < arr.length; i++) {
+    console.log("B Original array before Sorting ->", arr);
+    let len = arr.length;
+    for (let i = 0; i < len; i++) {
       setCurrentIndex(i);
+      for (let j = 0; j < len - i; j++) {
+        // setCurrentIndex(j);
+
+        if (arr[j] > arr[j + 1]) {
+          setCurrentNextIndex(j + 1);
+          let tmp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = tmp;
+        }
+
+        setArr([...arr]);
+      }
+
       await sleep(5000 / arr.length);
     }
+    setCurrentIndex(null);
+    setCurrentNextIndex(null);
+    console.log("B Original array after Sorting ->", arr);
   };
 
   const insertionOnClick = () => {
@@ -101,7 +120,11 @@ function Header() {
         </div>
       </div>
 
-      <Main data={arr} currentIndex={currentIndex} />
+      <Main
+        data={arr}
+        currentIndex={currentIndex}
+        currentNextIndex={currentNextIndex}
+      />
     </div>
   );
 }
