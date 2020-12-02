@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-// import Grid from "@material-ui/core/Grid";
-// import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import "./Header.css";
 import Main from "./Main";
+// import bubbleSort from "./SortingAlgo/bubbleSort";
+import insertionSort from "./SortingAlgo/insertionSort";
+import sleep from "./sleep";
 
 function Header() {
   const [size, setSize] = useState(5);
-
-  const [arr, setArr] = useState(
-    Array.from({ length: 5 + 1 }, () => Math.floor(Math.random() * 100))
-  );
+  const [arr, setArr] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   const handleSliderChange = (event, newValue) => {
     setSize(newValue);
@@ -31,8 +30,33 @@ function Header() {
       { length: size },
       () => Math.floor(Math.random() * 500) + 30
     );
-    console.log("Arr -> arr", arr);
+    console.log("Generated New Arr -> arr", arr);
     setArr(randomArr);
+  };
+
+  // const bubbleOnClick = () => {
+  //   console.log("B Original array before Sorting ->", arr);
+  //   const sortedArr = bubbleSort(arr);
+  //   const returnedArr = [...sortedArr];
+  //   setArr(returnedArr); // to pass the exact same state of returned array to setArr
+  //   console.log("B Sorted Array ->", returnedArr);
+  //   console.log("B Original array after Sorting ->", arr);
+  // };
+
+  const bubbleOnClick = async () => {
+    for (let i = 0; i < arr.length; i++) {
+      setCurrentIndex(i);
+      await sleep(5000 / arr.length);
+    }
+  };
+
+  const insertionOnClick = () => {
+    console.log("I Original array before Sorting ->", arr);
+    const sortedArr = insertionSort(arr);
+    const returnedArr = [...sortedArr];
+    setArr(returnedArr); // to pass the exact same state of returned array to setArr
+    console.log("I Sorted Array ->", returnedArr);
+    console.log("I Original array after Sorting ->", arr);
   };
 
   function click() {
@@ -44,7 +68,7 @@ function Header() {
       <div className="heading">
         <div className="webName">
           <h2> Sorting Visualizer </h2>
-          <h5> by Shubham</h5>
+          <h5> by Shubham </h5>
         </div>
 
         <div className="separator"></div>
@@ -70,14 +94,14 @@ function Header() {
         <div className="separator"></div>
 
         <div className="sort-wrapper">
-          <button onClick={click}> Bubble Sort </button>
-          <button onClick={click}> Insertion Sort </button>
+          <button onClick={bubbleOnClick}> Bubble Sort </button>
+          <button onClick={insertionOnClick}> Insertion Sort </button>
           <button onClick={click}> Merge Sort </button>
           <button onClick={click}> Quick Sort </button>
         </div>
       </div>
 
-      <Main data={arr} />
+      <Main data={arr} currentIndex={currentIndex} />
     </div>
   );
 }

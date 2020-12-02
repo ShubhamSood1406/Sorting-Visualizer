@@ -59,8 +59,8 @@ button:hover {
   color: #bbbbbb;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding-right: 50px;
+  justify-content: space-around;
+  /* padding-right: 50px; */
   width: 300px;
 }
 
