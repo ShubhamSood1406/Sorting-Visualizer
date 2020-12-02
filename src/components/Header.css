@@ -6,11 +6,11 @@ p {
 .heading {
   display: flex;
   flex-direction: row;
-  height: 70px;
+  height: 80px;
   width: 100%;
   background-color: #03506f;
-  padding-left: 20px;
-  padding-right: 20px;
+  /* padding-left: 20px; */
+  /* padding-right: 20px; */
   align-items: center;
   justify-content: space-around;
 }
@@ -34,22 +34,34 @@ button:hover {
   font-weight: bold;
 }
 
-.range-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 300px;
-  color: #bbbbbb;
-  align-items: center;
-  justify-content: space-around;
+.randomList {
+  width: 100px;
 }
 
-.sort-wrapper {
+.range-wrapper {
   display: flex;
   flex-direction: row;
   width: 250px;
   color: #bbbbbb;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.separator {
+  border-left: 2px solid #222831;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.sort-wrapper {
+  align-items: center;
+  color: #bbbbbb;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-right: 50px;
+  width: 300px;
 }
 
 .webName {

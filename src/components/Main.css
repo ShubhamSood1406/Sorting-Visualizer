@@ -2,18 +2,19 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding-left: 25px;
-  padding-right: 25px;
+  /* margin-left: 25px;
+  margin-right: 25px; */
   justify-content: center;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 
-p {
+p.barSizeName {
   text-align: center;
+  color: #3d7ea6;
+  padding-top: 10px;
 }
 
 .bar {
   background-color: #bce6eb;
-  margin-right: 1px;
-  border: 1px solid blue;
+  border: 1px solid #f9fafa;
 }

@@ -17,17 +17,28 @@ function Header() {
   };
 
   useEffect(() => {
-    const randomArr = Array.from({ length: size }, () =>
-      Math.floor(Math.random() * 500)
+    const randomArr = Array.from(
+      { length: size },
+      () => Math.floor(Math.random() * 500) + 30
     );
     console.log("Arr -> arr", arr);
     setArr(randomArr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size]);
 
+  const generateRandomList = () => {
+    const randomArr = Array.from(
+      { length: size },
+      () => Math.floor(Math.random() * 500) + 30
+    );
+    console.log("Arr -> arr", arr);
+    setArr(randomArr);
+  };
+
   function click() {
     console.log("Great Shot!");
   }
+
   return (
     <div>
       <div className="heading">
@@ -35,7 +46,14 @@ function Header() {
           <h2> Sorting Visualizer </h2>
           <h5> by Shubham</h5>
         </div>
-        <button onClick={click}> Generate New Array </button>
+
+        <div className="separator"></div>
+
+        <div className="randomList">
+          <button onClick={generateRandomList}> Generate New Array </button>
+        </div>
+
+        <div className="separator"></div>
 
         <div className="range-wrapper">
           <p> Select Array Range </p>
@@ -49,9 +67,12 @@ function Header() {
           <p style={{ margin: "10px" }}> {size} </p>
         </div>
 
+        <div className="separator"></div>
+
         <div className="sort-wrapper">
+          <button onClick={click}> Bubble Sort </button>
           <button onClick={click}> Insertion Sort </button>
-          <button onClick={click}> MergeSort </button>
+          <button onClick={click}> Merge Sort </button>
           <button onClick={click}> Quick Sort </button>
         </div>
       </div>
