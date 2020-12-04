@@ -2,7 +2,7 @@ import React from "react";
 import "./Main.css";
 
 function Main({ data, currentIndex, currentNextIndex }) {
-  // var screenWidth = window.outerWidth;
+  // console.log("arr in main", data);
   const barWidth = 700 / data.length;
   return (
     <div className="container">
@@ -17,8 +17,7 @@ function Main({ data, currentIndex, currentNextIndex }) {
                 ? "#e84a5f"
                 : currentNextIndex === index
                 ? "#fa7f72"
-                : "#bce6eb"
-            // backgroundColor: currentNextIndex === index ? "#ec5858" : "#bce6eb",
+                : "#bce6eb",
           }}
           key={index}
         >

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Slider from "@material-ui/core/Slider";
 import "./Header.css";
 import Main from "./Main";
-// import bubbleSort from "./SortingAlgo/bubbleSort";
-import insertionSort from "./SortingAlgo/insertionSort";
+import mergeSort from "./SortingAlgo/mergeSort";
 import sleep from "./sleep";
 
 function Header() {
+  const [btnState, setBtnState] = useState(0);
   const [size, setSize] = useState(5);
   const [arr, setArr] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
@@ -45,42 +45,92 @@ function Header() {
   // };
 
   const bubbleOnClick = async () => {
+    setBtnState(1);
     console.log("B Original array before Sorting ->", arr);
     let len = arr.length;
     for (let i = 0; i < len; i++) {
       setCurrentIndex(i);
-      for (let j = 0; j < len - i; j++) {
-        // setCurrentIndex(j);
 
+      for (let j = 0; j < len - i; j++) {
         if (arr[j] > arr[j + 1]) {
-          setCurrentNextIndex(j + 1);
           let tmp = arr[j];
           arr[j] = arr[j + 1];
           arr[j + 1] = tmp;
+          setCurrentNextIndex(j + 1);
         }
-
-        setArr([...arr]);
+        // setArr([...arr]);
       }
-
       await sleep(5000 / arr.length);
     }
     setCurrentIndex(null);
     setCurrentNextIndex(null);
     console.log("B Original array after Sorting ->", arr);
+    setBtnState(0);
   };
 
-  const insertionOnClick = () => {
+  const selectionOnClick = async () => {
+    setBtnState(1);
+    console.log("S Original array before Sorting ->", arr);
+    let len = arr.length;
+    for (let i = 0; i < len; i++) {
+      let min = i;
+      setCurrentIndex(i);
+      for (let j = i + 1; j < len; j++) {
+        if (arr[min] > arr[j]) {
+          min = j;
+          setCurrentNextIndex(min);
+        }
+      }
+      if (min !== i) {
+        let tmp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = tmp;
+        await sleep(5000 / arr.length);
+      }
+      setArr([...arr]);
+      await sleep(5000 / arr.length);
+    }
+    setCurrentIndex(null);
+    setCurrentNextIndex(null);
+    console.log("S Original array after Sorting ->", arr);
+    setBtnState(0);
+  };
+
+  const insertionOnClick = async () => {
+    setBtnState(1);
     console.log("I Original array before Sorting ->", arr);
-    const sortedArr = insertionSort(arr);
-    const returnedArr = [...sortedArr];
-    setArr(returnedArr); // to pass the exact same state of returned array to setArr
-    console.log("I Sorted Array ->", returnedArr);
+    let len = arr.length;
+    for (let i = 1; i < len; i++) {
+      let key = arr[i];
+      let j = i - 1;
+      setCurrentIndex(i);
+      while (j >= 0 && arr[j] > key) {
+        setCurrentNextIndex(j);
+        arr[j + 1] = arr[j];
+        j = j - 1;
+      }
+      arr[j + 1] = key;
+      await sleep(6000 / arr.length);
+    }
+    setCurrentIndex(null);
+    setCurrentNextIndex(null);
     console.log("I Original array after Sorting ->", arr);
+    setBtnState(0);
   };
 
-  function click() {
-    console.log("Great Shot!");
-  }
+  const mergeOnClick = () => {
+    console.log("M Original array before Sorting ->", arr);
+    const sortedArr = mergeSort(arr);
+    console.log("sortedarr", sortedArr);
+    // const returnedArr = [...sortedArr];
+    setArr(sortedArr); // to pass the exact same state of returned array to setArr
+    console.log("M Sorted Array ->", sortedArr);
+    console.log("M Original array after Sorting ->", arr);
+  };
+
+  // function click() {
+  //   console.log("Great Shot!");
+  // }
 
   return (
     <div>
@@ -93,7 +143,10 @@ function Header() {
         <div className="separator"></div>
 
         <div className="randomList">
-          <button onClick={generateRandomList}> Generate New Array </button>
+          <button onClick={generateRandomList} disabled={btnState === 1}>
+            {" "}
+            Generate New Array{" "}
+          </button>
         </div>
 
         <div className="separator"></div>
@@ -101,6 +154,7 @@ function Header() {
         <div className="range-wrapper">
           <p> Select Array Range </p>
           <Slider
+            disabled={btnState === 1}
             style={{ color: "#bce6eb", margin: "15px" }}
             value={typeof size === "number" ? size : 5}
             onChange={handleSliderChange}
@@ -113,10 +167,22 @@ function Header() {
         <div className="separator"></div>
 
         <div className="sort-wrapper">
-          <button onClick={bubbleOnClick}> Bubble Sort </button>
-          <button onClick={insertionOnClick}> Insertion Sort </button>
-          <button onClick={click}> Merge Sort </button>
-          <button onClick={click}> Quick Sort </button>
+          <button onClick={bubbleOnClick} disabled={btnState === 1}>
+            {" "}
+            Bubble Sort{" "}
+          </button>
+          <button onClick={selectionOnClick} disabled={btnState === 1}>
+            {" "}
+            Selection Sort{" "}
+          </button>
+          <button onClick={insertionOnClick} disabled={btnState === 1}>
+            {" "}
+            Insertion Sort{" "}
+          </button>
+          <button onClick={mergeOnClick} disabled={btnState === 1}>
+            {" "}
+            Merge Sort{" "}
+          </button>
         </div>
       </div>
 
